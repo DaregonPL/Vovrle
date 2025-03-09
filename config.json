@@ -1,0 +1,17 @@
+{
+  "user": null,
+  "gamelang": "Russian",
+  "scores": {
+
+  },
+  "lang": {
+    "Russian": "words/russian.dict",
+    "English": "words/english.dict"
+  },
+  "diff": {
+    "Easy (5 symbols)": 5,
+    "Medium (6 symbols)": 6,
+    "Hard (7 symbols)": 7,
+    "Extra Hard (8 symbols)": 8
+  }
+}

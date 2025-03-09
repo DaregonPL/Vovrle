@@ -32,22 +32,41 @@ class Game:
 
     def menu(self):
         cmm = Choice([
-            'Play', 'Settings', 'Save & Exit'
-        ], f'{self.user}, Welcome to Vovrle', ['help'],
-            upstring=f"{self.user}'s score: {self.data['scores'][self.user]}")
+            'Играть', 'На стройку', 'Сохраниться и уйти в закат'
+        ], f'{self.user}, вэлком ту Vovrle', ['help'],
+            upstring=f"{self.user} счет: {self.data['scores'][self.user]}")
         cmm.display()
         ans = cmm.answer()
-        if ans == 'Play':
+        if ans == 'Играть':
             self.setup()
-        elif ans == 'Settings':
-            pass
-        elif ans == 'Save & Exit':
+        elif ans == 'На стройку':
+            cs = Choice(['Назначить другое имя (счётчик сотрется)', 'Сменить язык', 'Восстановить игру'],
+                        "Настройки", ['home'])
+            cs.display()
+            ans = cs.answer()
+            if ans == 'Назначить другое имя (счётчик сотрется)':
+                print('Если чё, счётчик вернётся если поставите старое имя.' +
+                      ' Мы, аристократы, пихаем систему аккаунтов везде')
+                self.data['user'] = None
+                self.save()
+                self.__init__()
+            elif ans == 'Сменить язык':
+                lc = Choice(list(self.lang.keys()), 'Выберите язык')
+                lc.display()
+                ans = lc.answer()
+                if ans != 'home':
+                    self.data['gamelang'] = ans
+                    self.save()
+                    self.__init__()
+            elif ans == 'Восстановить игру':
+                print('Эх, были бы бэкапы...')
+        elif ans == 'Сохраниться и уйти в закат':
             self.save()
             self.exit = True
             print('бай бай')
         elif ans == 'help':
             print(f'''Vovrle - Wordle, но хуже (v1.0)
-developed by VovLer
+разработано VovLer'ом
 
 КАК ВЫБИРАТЬ ПУНКТЫ
 Напишите номер пункта или его название и жмакните enter
@@ -82,7 +101,7 @@ developed by VovLer
     def play(self):
         word = self.find_word()
         print(word)
-        print(f'Lenght of the word - {self.wordln}')
+        print(f'Длинна слова - {self.wordln}')
         print('''  Commands:
 /q - сдаться
 /helper - открыть помощника в новом окне
@@ -93,6 +112,7 @@ developed by VovLer
 Напишите слово маленькими буквами. 
 Попробуйте угадать исходное слово за 6 попыток:
 ''')
+        a = ''
         for x in range(1, 7):
             a = input('>')
             if a == '/q':

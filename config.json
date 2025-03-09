@@ -1,8 +1,7 @@
 {
-  "user": "Van",
-  "gamelang": "Русский",
+  "user": null,
+  "gamelang": "Англиский",
   "scores": {
-    "Van": 0
   },
   "lang": {
     "Русский": "words/russian.dict",

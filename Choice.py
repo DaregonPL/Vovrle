@@ -38,7 +38,7 @@ class Choice:
             [print(f'┃{n}. {val}') for n, val in self.binds.items()]
             print('┃')
             if self.cmd:
-                print(f'┣ Commands {", ".join(self.scopes)} are available')
+                print(f'┣ Доступны команды: {", ".join(self.scopes)}')
             self.ans = input('┗┫')
             self.poss = self.cmd + \
                 [x for x, y in self.binds.items()] + \

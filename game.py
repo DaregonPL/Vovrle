@@ -33,7 +33,8 @@ class Game:
     def menu(self):
         cmm = Choice([
             'Play', 'Settings', 'Save & Exit'
-        ], f'{self.user}, Welcome to Vovrle', ['help', 'score'])
+        ], f'{self.user}, Welcome to Vovrle', ['help'],
+            upstring=f"{self.user}'s score: {self.data['scores'][self.user]}")
         cmm.display()
         ans = cmm.answer()
         if ans == 'Play':
@@ -45,31 +46,28 @@ class Game:
             self.exit = True
             print('бай бай')
         elif ans == 'help':
-            print(f'''Vovrle - Wordle but worse (v1.0)
+            print(f'''Vovrle - Wordle, но хуже (v1.0)
 developed by VovLer
 
-HOW TO CHOOSE OPTIONS
-Type the number of option you choose / name of option and then press enter
+КАК ВЫБИРАТЬ ПУНКТЫ
+Напишите номер пункта или его название и жмакните enter
 
-HOW TO PLAY
-You choose the lenght, and then program takes a word for you.
-You need to guess the word by 6th attempt, or you loose.
-google how to play wordle bcz im too lazy to explain zzzzz
+КАК ИГРАТЬ
+Просто погуглите как играть в Wordle. Мне лень писать полмегабайта текста
 ''')
-        elif ans == 'score':
-            print(f"{self.user}'s score: {self.data['scores'][self.user]}")
         else:
             print('Error01: answer is not defined')
 
     def setup(self):
         while True:
-            cdiff = Choice(list(self.diff.keys()) + ['Custom'], 'Choose Difficulty', ['home'])
+            cdiff = Choice(list(self.diff.keys()) + ['Пользовательская'],
+                           'Выберите сложность:', ['home'])
             cdiff.display()
             ans = cdiff.answer()
             if ans == 'home':
                 break
-            elif ans == 'Custom':
-                leng = input('Enter lenght:')
+            elif ans == 'Пользовательская':
+                leng = input('Ведите длину:')
                 if leng.isdigit():
                     self.wordln = int(leng)
                     self.play()
@@ -86,34 +84,38 @@ google how to play wordle bcz im too lazy to explain zzzzz
         print(word)
         print(f'Lenght of the word - {self.wordln}')
         print('''  Commands:
-/q - give up
-/helper - open helper in another window
+/q - сдаться
+/helper - открыть помощника в новом окне
   Highlights:
-"-" - letter positioned wrong
-"=" - letter positioned correct
+"-" - буква поставлена не там
+"=" - буква поставлена там
 
-Type the word. You've got 6 attempts:
+Напишите слово маленькими буквами. 
+Попробуйте угадать исходное слово за 6 попыток:
 ''')
         for x in range(1, 7):
             a = input('>')
             if a == '/q':
-                self.loose('Вы смылись!')
+                self.loose('Вы смылись!', word)
                 break
             if len(a) != self.wordln:
-                self.loose('Неверная длина!')
+                self.loose('Неверная длина!', word)
                 break
             print(' ' + self.analyze(word, a))
             if word == a:
                 self.win()
                 break
+        if a != word:
+            self.loose('Попытки закончились!', word)
 
     def save(self):
         with open('config.json', 'w', encoding='utf8') as f:
             json.dump(self.data, f, ensure_ascii=False, indent=2)
 
-    def loose(self, reason):
+    def loose(self, reason, word):
         print('- ПРОИГРЫШ -')
         print(reason)
+        print(f'Верное слово: {word}')
         print(f'- {round(self.wordln ** 2 / 2)}')
         self.data['scores'][self.user] -= round(self.wordln ** 2 / 2)
 

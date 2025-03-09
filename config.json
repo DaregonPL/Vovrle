@@ -1,15 +1,17 @@
 {
   "user": "Van",
-  "gamelang": "Russian",
-  "scores": {},
+  "gamelang": "Русский",
+  "scores": {
+    "Van": 0
+  },
   "lang": {
-    "Russian": "words/russian.dict",
-    "English": "words/english.dict"
+    "Русский": "words/russian.dict",
+    "Англиский": "words/english.dict"
   },
   "diff": {
-    "Easy (5 symbols)": 5,
-    "Medium (6 symbols)": 6,
-    "Hard (7 symbols)": 7,
-    "Extra Hard (8 symbols)": 8
+    "Легко (5 символов)": 5,
+    "Средненько (6 символов)": 6,
+    "Сложно (7 символов)": 7,
+    "Наилегчайше (8 символов)": 8
   }
 }

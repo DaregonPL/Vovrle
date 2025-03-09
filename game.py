@@ -1,7 +1,6 @@
 from Choice import Choice
 import random
 import json
-import os
 '''
 Vovrle - Wordle, but worse
 '''
@@ -15,7 +14,8 @@ class Game:
             print('Кто ты, воин?')
             name = input()
             if not name:
-                raise Exception('Когда тебя спрашивают о твоём имени, молчать невежливо. Лови эксэпшн бич')
+                raise Exception('Когда тебя спрашивают о твоём' +
+                                ' имени, молчать невежливо.')
             self.data['user'] = name
             self.data['scores'][name] = self.data['scores'].get(name, 0)
             self.save()
@@ -40,7 +40,8 @@ class Game:
         if ans == 'Играть':
             self.setup()
         elif ans == 'На стройку':
-            cs = Choice(['Назначить другое имя (счётчик сотрется)', 'Сменить язык', 'Восстановить игру'],
+            cs = Choice(['Назначить другое имя (счётчик сотрется)',
+                         'Сменить язык', 'Восстановить игру'],
                         "Настройки", ['home'])
             cs.display()
             ans = cs.answer()
@@ -65,7 +66,7 @@ class Game:
             self.exit = True
             print('бай бай')
         elif ans == 'help':
-            print(f'''Vovrle - Wordle, но хуже (v1.0)
+            print('''Vovrle - Wordle, но хуже (v1.0)
 разработано VovLer'ом
 
 КАК ВЫБИРАТЬ ПУНКТЫ
@@ -109,7 +110,7 @@ class Game:
 "-" - буква поставлена не там
 "=" - буква поставлена там
 
-Напишите слово маленькими буквами. 
+Напишите слово маленькими буквами.
 Попробуйте угадать исходное слово за 6 попыток:
 ''')
         a = ''

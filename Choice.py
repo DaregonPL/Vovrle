@@ -5,10 +5,11 @@ Choice Module - utility to make choices easier
 
 
 class Choice:
-    def __init__(self, options, heading, cmd=[], line='b', hide=[]):
+    def __init__(self, options, heading, cmd=[], line='b', hide=[], upstring=None):
         self.binds, self.cmd, self.head = {}, cmd, heading
         self.line, self.hide = line, []
         self.hidecheck = False
+        self.upstring = upstring
         for x in hide:
             if type(x) is dict:
                 command = {}
@@ -23,6 +24,8 @@ class Choice:
         self.scopes = [f"\"{x}\"" for x in cmd]
 
     def display(self):
+        if self.upstring:
+            print(self.upstring)
         if self.line == 'b':
             self.out_bold()
         elif self.line == 'd':

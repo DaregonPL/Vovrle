@@ -17,8 +17,10 @@ class Game:
             if not name:
                 raise Exception('Когда тебя спрашивают о твоём имени, молчать невежливо. Лови эксэпшн бич')
             self.data['user'] = name
+            self.data['scores'][name] = self.data['scores'].get(name, 0)
             self.save()
 
+        self.user = self.data['user']
         self.lang = self.data['lang']
         self.diff = self.data['diff']
         self.wordln = 0
@@ -30,23 +32,32 @@ class Game:
 
     def menu(self):
         cmm = Choice([
-            'Play', 'Settings', 'Save', 'Save & Exit'
-        ], f'Welcome to Vovrle', ['help', 'about'])
+            'Play', 'Settings', 'Save & Exit'
+        ], f'{self.user}, Welcome to Vovrle', ['help', 'score'])
         cmm.display()
         ans = cmm.answer()
         if ans == 'Play':
             self.setup()
         elif ans == 'Settings':
             pass
-        elif ans == 'Save':
-            self.save()
         elif ans == 'Save & Exit':
             self.save()
             self.exit = True
+            print('бай бай')
         elif ans == 'help':
-            pass
-        elif ans == 'about':
-            pass
+            print(f'''Vovrle - Wordle but worse (v1.0)
+developed by VovLer
+
+HOW TO CHOOSE OPTIONS
+Type the number of option you choose / name of option and then press enter
+
+HOW TO PLAY
+You choose the lenght, and then program takes a word for you.
+You need to guess the word by 6th attempt, or you loose.
+google how to play wordle bcz im too lazy to explain zzzzz
+''')
+        elif ans == 'score':
+            print(f"{self.user}'s score: {self.data['scores'][self.user]}")
         else:
             print('Error01: answer is not defined')
 
@@ -104,10 +115,12 @@ Type the word. You've got 6 attempts:
         print('- ПРОИГРЫШ -')
         print(reason)
         print(f'- {round(self.wordln ** 2 / 2)}')
+        self.data['scores'][self.user] -= round(self.wordln ** 2 / 2)
 
     def win(self):
         print('- УРА ПОБЕДА -')
         print(f'+ {self.wordln ** 2 - 2}')
+        self.data['scores'][self.user] += self.wordln ** 2 - 2
 
     def analyze(self, word, ans):
         res = [' ' for x in range(self.wordln)]

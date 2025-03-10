@@ -11,7 +11,8 @@ def guess(mask, include=None, exclude=None):
     with open('config.json', encoding='utf8') as confile:
         cnf = json.load(confile)
     with open(cnf['lang'][cnf['gamelang']], encoding='utf8') as wf:
-        words = list(filter(lambda a: len(a) == len(mask), wf.read().strip().split()))
+        words = list(filter(lambda a: len(a) == len(mask),
+                            wf.read().strip().split()))
     goodwords = []
     for w in words:
         unused = list(w)
@@ -41,10 +42,12 @@ if __name__ == '__main__':
   маска-включитьБуквы-исключитьБуквы
 Например:
   а___н-и-ч
-  В этом примере хэлпер будет искать слова длиной 5 символов, где на первом месте
-  стоит А, на последнем Н, причем в слове должны быть буква И, и не должно быль буквы Ч
-  
-  Если вам не нужно включать/исключать буквы, ничего не оставляйте между "-" ничего.
+  В этом примере хэлпер будет искать слова длиной 5 символов, где на
+  первом месте стоит А, на последнем Н, причем в слове должны быть
+  буква И, и не должно быль буквы Ч.
+
+  Если вам не нужно включать/исключать буквы, ничего не оставляйте
+  между "-" ничего:
   ан__ас--
   а__нас-а-''')
     lastwds = []

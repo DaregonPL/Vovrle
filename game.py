@@ -33,7 +33,7 @@ class Game:
     def menu(self):
         cmm = Choice([
             'Играть', 'На стройку', 'Сохраниться и уйти в закат'
-        ], f'{self.user}, вэлком ту Vovrle', ['help'],
+        ], f'{self.user}, вэлком ту Vovrle', ['help', 'helper'],
             upstring=f"{self.user} счет: {self.data['scores'][self.user]}")
         cmm.display()
         ans = cmm.answer()
@@ -75,6 +75,8 @@ class Game:
 КАК ИГРАТЬ
 Просто погуглите как играть в Wordle. Мне лень писать полмегабайта текста
 ''')
+        elif ans == 'helper':
+            print('Запустите helper.py')
         else:
             print('Error01: answer is not defined')
 

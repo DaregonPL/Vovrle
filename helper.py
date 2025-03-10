@@ -24,7 +24,6 @@ def guess(mask, include=None, exclude=None):
                 unused.remove(w[x])
         if unfit:
             continue
-        print(w)
         if len([x for x in unused if x in include]) < len(include):
             continue
         if [x for x in unused if x in exclude]:
@@ -43,4 +42,28 @@ if __name__ == '__main__':
 Например:
   а___н-и-ч
   В этом примере хэлпер будет искать слова длиной 5 символов, где на первом месте
-  стоит А, на последнем Н, причем в слове должны быть буква И, и не должно быль буквы Ч''')
+  стоит А, на последнем Н, причем в слове должны быть буква И, и не должно быль буквы Ч
+  
+  Если вам не нужно включать/исключать буквы, ничего не оставляйте между "-" ничего.
+  ан__ас--
+  а__нас-а-''')
+    lastwds = []
+    a = input('>')
+    while a:
+        if a == '*':
+            print('\n'.join(lastwds))
+        elif a.count('-') != 2:
+            print('2x"-" expected')
+        else:
+            mask, inc, exc = a.split('-')
+            wds = guess(mask, inc, exc)
+            if not wds:
+                print('Can\'t find words that match')
+            else:
+                lastwds = wds.copy()
+                b = wds.copy()
+                random.shuffle(b)
+                print(', '.join(b[:min(len(b), 5)]))
+                if len(wds) > 5:
+                    print('...  Type "*" to see all variants')
+        a = input('>')

@@ -105,7 +105,6 @@ class Game:
         print(f'Длинна слова - {self.wordln}')
         print('''  Commands:
 /q - сдаться
-/helper - открыть помощника в новом окне
   Highlights:
 "-" - буква поставлена не там
 "=" - буква поставлена там

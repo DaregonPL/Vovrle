@@ -103,7 +103,6 @@ class Game:
 
     def play(self):
         word = self.find_word()
-        print(word)
         print(f'Длинна слова - {self.wordln}')
         print('''  Commands:
 /q - сдаться
